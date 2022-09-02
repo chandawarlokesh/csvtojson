@@ -37,7 +37,9 @@ function activate(context) {
 			}
 		}
 		const csv = readFile();
-		const arrays = csv.split("\n").map(user => user.split(","));
+		const workbenchConfig = vscode.workspace.getConfiguration('csvtojson');
+		const delimiter =  workbenchConfig.get('delimiter') || ",";
+		const arrays = csv.split("\n").map(user => user.split(delimiter));
 		const keys = arrays[0];
 		const values = arrays.slice(1);
 		// Create a new array of objects with the keys and values of each object corresponding to the headers and values of each row of the csv respectively
